@@ -78,23 +78,27 @@ test('throw', t => {
 
   function B () {}
 
+  function isInvalidArgTypeError (err) {
+    return err instanceof TypeError && err.code === 'ERR_INVALID_ARG_TYPE'
+  }
+
   t.throws(() => {
     inherits(undefined, A)
-  }, TypeError)
+  }, isInvalidArgTypeError)
 
   t.throws(() => {
     inherits(null, A)
-  }, TypeError)
+  }, isInvalidArgTypeError)
 
   t.throws(() => {
     inherits(B)
-  }, TypeError)
+  }, isInvalidArgTypeError)
 
   t.throws(() => {
     inherits(B, null)
-  }, TypeError)
+  }, isInvalidArgTypeError)
 
   t.throws(() => {
     inherits(B, {})
-  }, TypeError)
+  }, isInvalidArgTypeError)
 })
